@@ -15,6 +15,13 @@ Projeto para resolver o desafio técnico de dados da **LH Nautical**, cobrindo t
 - **Data Leakage:** Identificados pedidos com datas indo até `2026-12-31`. Necessita de corte/tratamento temporal antes da modelagem.
 - **Volume:** A base é substancial (e.g., 147k itens de pedido, 115k movimentações de estoque). O uso de `DuckDB` + `Pandas` (ou `Parquet`) foi definido como o padrão para cruzamentos eficientes.
 
+## Principais Descobertas e Ações (Evolução Analítica)
+- **Rentabilidade de Produtos:** Constatamos que os Top produtos (Curva A) operam com margens brutas saudáveis (>50%). Não foram identificados "vilões" de rentabilidade (produtos com alta receita e margem base <10%), o que indica que a estratégia primária de precificação e descontos está otimizada.
+- **Qualidade de Dados nas Devoluções:** Identificamos severas inconsistências de *input* nos motivos de devolução (erros de digitação, diferenças de maiúsculas). Adotamos uma padronização via `CASE WHEN` no script `02_build_fato_devolucoes.py` para consolidar categorias diretamente na camada Silver/Gold.
+- **O Ralo Logístico (Hipóteses Centrais):** A análise das devoluções revelou dois problemas distintos que direcionam ações para times diferentes:
+  1. *Fricção Digital:* Desistências, compras duplicadas e divergências de descrição apontam para falhas na interface do e-commerce (falhas na UX do carrinho ou falta de informações claras).
+  2. *Fricção Física:* Avarias e defeitos de fábrica escancaram falhas na cadeia logística (controle de qualidade do fornecedor e/ou transportadoras ineficientes).
+
 ## Estrutura do Repositório
 - `01_eda/` a `06_recomendacao/`: Pastas para os notebooks e scripts executáveis de cada fase do desafio.
 - `src/`: Código fonte reutilizável (funções de transformação, etc).
