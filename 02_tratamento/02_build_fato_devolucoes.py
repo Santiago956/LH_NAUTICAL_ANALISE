@@ -10,9 +10,15 @@ con = duckdb.connect()
 query = """
 COPY (
     SELECT 
-        r.id AS return_id,
-        r.order_id,
-        INITCAP(TRIM(r.reason)) AS return_reason,
+        CASE 
+            WHEN UPPER(r.reason) LIKE '%DUPLICADA%' THEN 'Compra Duplicada'
+            WHEN UPPER(r.reason) LIKE '%DEFEITO%' THEN 'Defeito de Fábrica'
+            WHEN UPPER(r.reason) LIKE '%DESCRI%' THEN 'Divergência de Descrição'
+            WHEN UPPER(r.reason) LIKE '%TAMANHO%' OR UPPER(r.reason) LIKE '%COR%' THEN 'Tamanho/Cor Incorretos'
+            WHEN UPPER(r.reason) LIKE '%TRANSPORTE%' OR UPPER(r.reason) LIKE '%AVARIADO%' OR UPPER(r.reason) LIKE '%VARIADO%' THEN 'Avariado no Transporte'
+            WHEN UPPER(r.reason) LIKE '%DESISTI%' OR UPPER(r.reason) LIKE '%DESISTU%' THEN 'Desistência'
+            ELSE 'Outros'
+        END AS return_reason,
         r.created_at AS return_date,
         r.status AS return_status,
         
