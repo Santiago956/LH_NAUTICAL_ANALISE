@@ -5,8 +5,9 @@ Projeto para resolver o desafio técnico de dados da **LH Nautical**, cobrindo t
 
 ## Metodologia Acordada
 - **Reprodutibilidade:** Uso de `uv` para gestão de dependências. Scripts organizados modularmente (`src/`, `scripts/`, notebooks nas pastas por etapa).
+- **Tratamento Integrado (Fato de Vendas):** Para evitar retrabalho, o tratamento de dados não ocorre isolado apenas no EDA. Criamos uma tabela Fato consolidada (Silver/Gold layer) cruzando dimensões essenciais e realizando cortes lógicos (como o truncamento temporal). Essa base pré-calculada servirá como única fonte da verdade para o EDA profundo, Dashboard e Modelos.
 - **Simplicidade (No Black-Box):** Preferência por modelos explicáveis e regras de negócio claras em vez de modelos de deep learning opacos.
-- **Validação Temporal Rigorosa:** Como os dados vão até o final de 2026 e o período atual é agosto de 2026, precisaremos lidar com dados "do futuro". Modelos de previsão devem usar "walk-forward validation" para evitar data leakage.
+- **Validação Temporal Rigorosa:** Como os dados sintéticos vão até o final de 2026 e o período atual (físico) é agosto de 2026, truncamos os dados de vendas para `<= 2026-08-10`. Modelos de previsão usarão "walk-forward validation" para evitar data leakage.
 - **Top-Down:** Todas as análises devem partir de uma ótica de negócios, respondendo: o que aconteceu, por que aconteceu, e qual a ação recomendada.
 
 ## Descobertas Iniciais (Auditoria de Qualidade)
