@@ -10,6 +10,8 @@ con = duckdb.connect()
 query = """
 COPY (
     SELECT 
+        r.id AS return_id,
+        r.order_id,
         CASE 
             WHEN UPPER(r.reason) LIKE '%DUPLICADA%' THEN 'Compra Duplicada'
             WHEN UPPER(r.reason) LIKE '%DEFEITO%' THEN 'Defeito de Fábrica'
