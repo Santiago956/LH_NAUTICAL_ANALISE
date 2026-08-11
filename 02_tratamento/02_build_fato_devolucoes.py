@@ -12,7 +12,7 @@ COPY (
     SELECT 
         r.id AS return_id,
         r.order_id,
-        r.reason AS return_reason,
+        INITCAP(TRIM(r.reason)) AS return_reason,
         r.created_at AS return_date,
         r.status AS return_status,
         
