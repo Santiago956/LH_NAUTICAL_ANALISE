@@ -29,3 +29,5 @@ Projeto para resolver o desafio técnico de dados da **LH Nautical**, cobrindo t
 - `docs/`: Documentação, ERD e contextos de negócio.
 - `data/raw/`: Arquivos CSV originais (ignorados no git).
 - `data/processed/`: Tabelas intermediárias geradas (ex: Fato de Vendas).
+
+- **Perfil de Clientes (LTV e Clusterização):** Constatamos que a receita é altamente pulverizada (perfil varejo B2C). São necessários 71,6% dos clientes para formar 80% do faturamento, contrariando a regra clássica de Pareto (20/80). A recomendação estratégica afasta o Key Account Management (KAM) e prioriza ganho de escala via automação de CRM e Sistemas de Recomendação.

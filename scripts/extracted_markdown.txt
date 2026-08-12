@@ -1,0 +1,64 @@
+
+==================================================
+Notebook: E:\repo\lh_nautical_analise\03_analise_vendas\01_rentabilidade_produtos.ipynb
+==================================================
+# 📈 Análise de Rentabilidade: Produtos e Canais
+
+## Objetivo de Negócio
+Atendendo às diretrizes da Diretoria, esta análise visa responder objetivamente:
+1. **Quem são os 'Heróis da Margem'?** (Produtos que garantem a sustentabilidade da empresa).
+2. **Quem são os 'Vilões'?** (Produtos que vendem muito, mas corroem o lucro por conta de altos custos ou descontos).
+
+**Metodologia:** Utilizaremos a nossa `Fato de Vendas` (tratada, livre de vazamento temporal) para construir a **Curva ABC** de margem de lucro bruto.
+----------------------------------------
+### 1. Curva ABC de Produtos (Focada em Margem Bruta)
+No varejo tradicional, muitos focam na *Receita*. Vamos focar no *Lucro Bruto* (`gross_margin`).
+----------------------------------------
+### 2. Identificando os "Vilões" da Rentabilidade
+Queremos produtos da Curva A em Receita (vendem muito em volume), mas que deixam pouquíssima Margem (< 5%) ou até Margem Negativa.
+----------------------------------------
+### 3. Exemplo Prático do Framework de Decisão
+*(Preencha de acordo com os resultados das células acima)*
+
+**Fato Observado:** 
+*Nossos Top 10 produtos possuem uma margem bruta espetacular (>50%), e não existem "vilões" de
+  rentabilidade na precificação na ponta (Margem Bruta < 10%).*
+
+**Hipótese:**
+*A política de descontos está bem calibrada, mas esse "lucro perfeito" ignora o impacto financeiro do
+  pós-venda (Logística Reversa e Estornos).*
+
+**Recomendação:**
+*Orientar a equipe Comercial a manter a atual política de preços e descontos, pois ela
+  está rentável. Como próximo passo imediato, aprovar o cruzamento dessa base com os dados de Devoluções (returns e
+  return_items) para calcular a Margem Líquida Real e encontrar os verdadeiros ofensores do caixa.*
+----------------------------------------
+
+==================================================
+Notebook: E:\repo\lh_nautical_analise\03_analise_vendas\02_analise_devolucoes.ipynb
+==================================================
+# 📉 Análise de Devoluções e Ralo Financeiro
+
+## Objetivo de Negócio
+Após descobrirmos que nossa margem de preços na ponta é altíssima (>50%), precisamos investigar se estamos perdendo dinheiro através de **Devoluções**. 
+
+Esta análise responde:
+1. **Motivos principais:** Por que os clientes estão devolvendo nossos produtos?
+2. **Os Verdadeiros Vilões:** Quais SKUs têm alto volume de devolução (prejuízo de frete/estorno)?
+----------------------------------------
+### 1. Quais são os motivos principais de devolução?
+----------------------------------------
+### 2. Identificando os SKUs ofensores (Os Vilões)
+Vamos calcular a Taxa de Devolução por Produto: (Quantidade Devolvida / Quantidade Vendida).
+----------------------------------------
+### 3. Conclusão Executiva e Framework de Decisão
+
+**Fato Observado:** 
+*Desistência, Compras Duplicadas, Tamanho/Cores Incorretas, Divergência na Descrição, Avaria no Transporte e Defeitos de Fábrica compõem os principais motivos de devolução na base histórica tratada.*
+
+**Hipótese:**
+*Temos dois gargalos sistêmicos claros atuando simultaneamente:\n1. **Fricção Digital:** Desistências, compras duplicadas e itens incorretos apontam para uma interface de e-commerce defeituosa (provável falha técnica no checkout ou informações pobres na página do produto).\n2. **Fricção Física:** Avarias e defeitos evidenciam problemas graves no manejo logístico (da linha de produção do fornecedor até o envio via transportadora).*
+
+**Recomendação:**
+*Ação Imediata (Produto): Escalar para o time de UX/UI uma revisão urgente do fluxo do carrinho (para mitigar compras duplicadas) e melhoria nas tabelas de medidas e descrições.\nAção Imediata (Logística): Iniciar auditoria de qualidade nos SKUs que lideram a lista de vilões, reavaliar SLA dos atuais parceiros de frete e buscar no mercado opções de entrega com menor índice de quebra no transporte.*
+----------------------------------------
