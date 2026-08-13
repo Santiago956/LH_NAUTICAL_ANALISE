@@ -22,18 +22,19 @@ st.markdown("""
     div[data-testid="stMetricValue"] {
         font-size: 28px !important;
         font-weight: 700 !important;
-        color: #0f172a !important; 
+        color: var(--text-color) !important; 
     }
     div[data-testid="stMetricLabel"] {
         font-size: 14px !important;
         font-weight: 600 !important;
-        color: #64748b !important;
+        color: var(--text-color) !important;
+        opacity: 0.7;
         text-transform: uppercase;
     }
     
     div[data-testid="metric-container"] {
-        background-color: #f8fafc;
-        border: 1px solid #e2e8f0;
+        background-color: var(--secondary-background-color);
+        border: 1px solid rgba(128, 128, 128, 0.2);
         border-radius: 8px;
         padding: 16px;
         box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
@@ -80,8 +81,7 @@ df_vendas['placed_at'] = pd.to_datetime(df_vendas['placed_at'])
 # ==========================================
 # 3. FILTROS (SIDEBAR)
 # ==========================================
-st.sidebar.image("https://cdn-icons-png.flaticon.com/512/3211/3211158.png", width=50) 
-st.sidebar.title("Filtros Analíticos")
+st.sidebar.title("⛵ Filtros Analíticos")
 
 # Filtro de Período
 anos_disponiveis = sorted(df_vendas['placed_at'].dt.year.unique())
