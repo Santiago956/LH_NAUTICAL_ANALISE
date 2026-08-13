@@ -31,3 +31,9 @@ Projeto para resolver o desafio técnico de dados da **LH Nautical**, cobrindo t
 - `data/processed/`: Tabelas intermediárias geradas (ex: Fato de Vendas).
 
 - **Perfil de Clientes (LTV e Clusterização):** Constatamos que a receita é altamente pulverizada (perfil varejo B2C). São necessários 71,6% dos clientes para formar 80% do faturamento, contrariando a regra clássica de Pareto (20/80). A recomendação estratégica afasta o Key Account Management (KAM) e prioriza ganho de escala via automação de CRM e Sistemas de Recomendação.
+- **Previsão de Demanda:** Observou-se sazonalidade extrema com picos massivos durante o verão (Dez-Fev) aliada a um crescimento orgânico YoY. Recomendação de Suprimentos: emitir Purchase Orders (POs) imediatas (Agosto/Setembro) para evitar rupturas de estoque no pico.
+- **Sistema de Recomendação:** Construído motor de filtro colaborativo *item-based* via matriz de co-ocorrência em SQL (DuckDB) para evitar "caixas pretas". O objetivo é mitigar o ticket médio baixo através de Cross-Sell inteligente no E-commerce e CRM.
+- **Entrega Final (Etapa 07):**
+  - **Relatório Executivo PDF (`EXECUTIVE_SUMMARY_V3.pdf`):** Sintetiza os insights de forma amigável para Diretoria (Fatos, Hipóteses, Recomendações).
+  - **Dashboard Streamlit (`dashboard.py`):** Arquitetura orientada a *Storytelling com Dados* (Contexto -> KPIs -> Evolução -> Diagnóstico), aplicando dark mode dinâmico, UX Glassmorphism e IA interativa de co-ocorrência.
+  - **Empacotamento:** O projeto inteiro (Dashboard + PDF + Dados em Parquet) foi compactado em `entrega_final_lh_nautical.zip` para distribuição *plug-and-play*.
