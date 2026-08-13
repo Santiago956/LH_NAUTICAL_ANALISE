@@ -246,7 +246,7 @@ with tab4:
                 )
                 SELECT nome_recomendado, vezes_comprados_juntos
                 FROM pares
-                HAVING vezes_comprados_juntos > 1
+                WHERE vezes_comprados_juntos > 1
                 ORDER BY vezes_comprados_juntos DESC LIMIT 3
                 """
                 recs = con.execute(query_afinidade).df()
