@@ -4,7 +4,7 @@ from reportlab.platypus import SimpleDocTemplate, Paragraph, Image, Spacer
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 
 docs_dir = r"E:\repo\lh_nautical_analise\docs"
-pdf_path = os.path.join(docs_dir, "EXECUTIVE_SUMMARY_V2.pdf")
+pdf_path = os.path.join(docs_dir, "EXECUTIVE_SUMMARY_V3.pdf")
 plot1_path = os.path.join(docs_dir, "plot_seasonality.png")
 plot2_path = os.path.join(docs_dir, "plot_pareto.png")
 plot_canais_path = os.path.join(docs_dir, "plot_canais.png")
@@ -52,8 +52,12 @@ add_fhr(
     "Avaliar com a área Comercial se o foco de expansão será 100% digital, ou se há interesse em revitalizar as vendas no varejo físico."
 )
 
+plot_devolucoes_path = os.path.join(docs_dir, "plot_devolucoes.png")
+
 # Capítulo 2. Rentabilidade e Devoluções
 story.append(Paragraph("2. Rentabilidade e Ralo Logístico (Devoluções)", h2_style))
+if os.path.exists(plot_devolucoes_path):
+    story.append(Image(plot_devolucoes_path, width=400, height=200))
 add_fhr(
     "Os Top produtos possuem margem bruta saudável (>50%). Não há ofensores graves de margem na precificação de ponta.",
     "A política de descontos está bem calibrada pela área comercial.",
