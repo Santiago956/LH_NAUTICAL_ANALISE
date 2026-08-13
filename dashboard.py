@@ -7,26 +7,32 @@ import plotly.express as px
 st.set_page_config(page_title="LH Nautical Dashboard", page_icon="⛵", layout="wide")
 
 # Inicialização e Cache de Dados
+@st.cache_resource
+def get_db_connection():
+    return duckdb.connect()
+
+con = get_db_connection()
+
 @st.cache_data
 def load_data():
-    con = duckdb.connect()
+    conn = duckdb.connect()
     fato_vendas = "E:/repo/lh_nautical_analise/data/processed/fato_vendas.parquet"
     fato_devolucoes = "E:/repo/lh_nautical_analise/data/processed/fato_devolucoes.parquet"
     dim_clientes = "E:/repo/lh_nautical_analise/data/processed/dim_clientes.parquet"
     categories = "E:/repo/lh_nautical_analise/data/raw/categories.csv"
     
     # KPIs Básicos
-    kpis = con.execute(f"SELECT SUM(item_revenue) as receita, SUM(gross_margin) as margem FROM read_parquet('{fato_vendas}')").df()
+    kpis = conn.execute(f"SELECT SUM(item_revenue) as receita, SUM(gross_margin) as margem FROM read_parquet('{fato_vendas}')").df()
     
     # Sazonalidade
-    df_ts = con.execute(f"""
+    df_ts = conn.execute(f"""
         SELECT DATE_TRUNC('month', placed_at) as mes, SUM(item_revenue) as receita
         FROM read_parquet('{fato_vendas}')
         GROUP BY 1 ORDER BY 1
     """).df()
     
     # Categorias
-    df_cat = con.execute(f"""
+    df_cat = conn.execute(f"""
         SELECT c.name as categoria, SUM(f.item_revenue) as receita
         FROM read_parquet('{fato_vendas}') f
         LEFT JOIN read_csv_auto('{categories}') c ON f.category_id = c.id
@@ -34,15 +40,15 @@ def load_data():
     """).df()
     
     # Devoluções
-    df_dev = con.execute(f"""
+    df_dev = conn.execute(f"""
         SELECT return_reason as motivo, SUM(item_refund_total) as valor_estornado
         FROM read_parquet('{fato_devolucoes}')
         GROUP BY 1 ORDER BY 2 DESC
     """).df()
     
-    return con, fato_vendas, kpis, df_ts, df_cat, df_dev
+    return fato_vendas, kpis, df_ts, df_cat, df_dev
 
-con, fato_vendas, kpis, df_ts, df_cat, df_dev = load_data()
+fato_vendas, kpis, df_ts, df_cat, df_dev = load_data()
 
 # Título Principal
 st.title("⛵ LH Nautical - Centro de Inteligência Executiva")
